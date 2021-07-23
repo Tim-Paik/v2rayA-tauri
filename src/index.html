@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v2rayA</title>
+    <style>
+      p {
+        color: gray;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: none;
+        text-align: center;
+      }
+      @media (prefers-color-scheme: dark) {
+        html,
+        svg {
+          fill: gray;
+          background-color: #000;
+          transition: color 0.3s, background-color 0.3s;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="10rem"
+      height="10rem"
+      viewBox="0 0 24 30"
+      style="
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <rect x="0" width="4" height="0" class="rect">
+        <animate
+          attributeName="opacity"
+          values="0.3;0.6;0.3"
+          begin="0s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="height"
+          values="10;20;10"
+          begin="0s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="y"
+          values="10;5;10"
+          begin="0s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+      </rect>
+      <rect x="8" width="4" height="0" class="rect">
+        <animate
+          attributeName="opacity"
+          values="0.3;0.6;0.3"
+          begin="0.1s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="height"
+          values="10;20;10"
+          begin="0.1s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="y"
+          values="10;5;10"
+          begin="0.1s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+      </rect>
+      <rect x="16" width="4" height="0" class="rect">
+        <animate
+          attributeName="opacity"
+          values="0.3;0.6;0.3"
+          begin="0.2s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="height"
+          values="10;20;10"
+          begin="0.2s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="y"
+          values="10;5;10"
+          begin="0.2s"
+          dur="0.4s"
+          repeatCount="indefinite"
+        />
+      </rect>
+    </svg>
+    <p id="note">如果长时间等待，请检查 v2rayA 服务是否启动以及 URL 是否正确<br />PS:可以添加 <code>--url "Your URL"</code> 参数来自定义URL</p>
+    <script>
+      function testUrl() {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://127.0.0.1:2017/";
+        window.__TAURI__.cli.getMatches().then((matches) => {
+          if (matches.args.url.value) {
+            url = matches.args.url.value;
+          }
+          xmlhttp.open("GET", url, false);
+          xmlhttp.send();
+          if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              window.location = url;
+            }
+          }
+        });
+      }
+      setInterval(testUrl, 500);
+      setTimeout(() => {
+        document.getElementById("note").style.display = "block";
+      }, 1000);
+    </script>
+  </body>
+</html>
